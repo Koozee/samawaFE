@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color1: #5C2D2D;
+  --color2: #FF48B6;
+  --color3: #FFA740;
+  --color4: #07B704;
+  --dark1: #000000;
+  --light1: #ffffff;
+  --light2: #F7F7F9;
+  --light3: #E4E6EB;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--light1);
+  color: var(--dark1);
+  font-family: 'Poppins', sans-serif;
 }
+
+/* .card-slide-content {
+  @apply bg-light1 rounded-3xl absolute top-1/2 z-10 p-5 max-w-[305px] transition-all opacity-0;
+  left: 100px;
+  transition-duration: 1000ms;
+
+  transform: translateY(-45%) rotate3d(1, 0, 0, -20deg);
+}
+
+.swiper-slide-active .card-slide-content {
+  @apply opacity-100;
+  transform: translateY(-50%) rotate3d(1, 1, 1, 0deg);
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  z-index: 20;
+  width: 100%;
+  height: 30px;
+} */
