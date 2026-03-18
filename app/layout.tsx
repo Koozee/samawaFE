@@ -11,6 +11,9 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Samawa",
   description: "Get your wedding party done",
+  icons: {
+    icon: "/images/logo-samawa.svg",
+  },
 };
 
 export default function RootLayout({
