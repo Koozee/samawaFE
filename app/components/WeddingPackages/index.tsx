@@ -77,13 +77,45 @@ export default async function WeddingPackages({ show, type }: PropsWeddingPackag
     const { data }: { data: TPackage[] } = await getData(show);
     if (type === "grid") {
         return (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {data.map((item) => (
-                    <div key={item.id} className="bg-white rounded-lg shadow-md p-4">
-                        <h3 className="text-lg font-semibold">{item.name}</h3>
-                        <p className="text-gray-600">{item.price}</p>
-                    </div>
-                ))}
+            <div className="grid grid-cols-4 gap-7">
+                {data.map((item) => {
+                    return (
+                        <div key={item.id} className="flex flex-col gap-y-4 relative">
+                            <Link href={`/wedding-details/${item.id}`} className="absolute inset-0 z-10" />
+                            <span className="relative h-[300px] rounded-3xl overflow-hidden">
+                                {item.isPopular ===  1 && <span className="absolute z-10 top-5 left-5">
+                                    <span
+                                        className="bg-color1 rounded-full text-light1 inline-flex gap-x-2 items-center text-sm py-1 px-3 uppercase"
+                                    >
+                                        <PopularIcon width={16} height={16} />
+                                        Popular
+                                    </span>
+                                </span>}
+                                <Image
+                                    src={item.thumbnail}
+                                    alt={item.name}
+                                    fill
+                                    unoptimized={process.env.NODE_ENV === "development"}
+                                    className="w-full h-full object-cover absolute"
+                                />
+                            </span>
+                            <h6 className="text-xl font-bold">
+                                {item.name}
+                            </h6>
+                            <span className="flex flex-col gap-[14px]">
+                                <span className="flex gap-x-2 items-center">
+                                    <PinpointIcon width={32} height={32} />
+                                    {item.city.name}
+                                </span>
+                                <span className="flex gap-x-2 items-center">
+                                    <HometownIcon width={32} height={32} />
+                                    {item.weddingOrganizer.name}
+                                </span>
+                            </span>
+                            <span className="text-color2 font-bold">Rp {item.price.toLocaleString('id-ID')}</span>
+                        </div>
+                    )
+                })}
             </div>
         )
     }

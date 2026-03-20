@@ -13,7 +13,7 @@ export type TPackage = {
     name: string,
     slug: string,
     price: number,
-    isPopular: boolean,
+    isPopular: 1 | 0,
     thumbnail: string,
     about: string,
     city: TCity

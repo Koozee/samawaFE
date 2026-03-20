@@ -38,3 +38,46 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   width: 100%;
   height: 30px;
 }
+
+/* Testimonial Card Styles */
+.testimonial-card {
+  background: linear-gradient(145deg, #ffffff 0%, #fafbff 100%);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 28px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 8px 24px rgba(92, 45, 45, 0.08),
+    0 16px 40px rgba(255, 72, 182, 0.06);
+  border-color: rgba(255, 72, 182, 0.12);
+}
+
+/* Swiper pagination for testimonials */
+.testimonial-swiper .swiper-pagination-bullet {
+  background: var(--color-color2);
+  opacity: 0.3;
+  transition: all 0.3s ease;
+}
+
+.testimonial-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: var(--color-color2);
+  transform: scale(1.2);
+}
+
+.testimonial-swiper .swiper-button-next,
+.testimonial-swiper .swiper-button-prev {
+  color: var(--color-color2);
+  transition: transform 0.2s ease;
+}
+
+.testimonial-swiper .swiper-button-next:hover,
+.testimonial-swiper .swiper-button-prev:hover {
+  transform: scale(1.1);
+}
