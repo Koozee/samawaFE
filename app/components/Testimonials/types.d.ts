@@ -6,5 +6,6 @@ export type TTestimonial = {
     occupation: string;
     photo: string;
     message: string;
+    length: number;
     weddingPackage: TPackage;
 }

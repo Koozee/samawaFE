@@ -3,7 +3,7 @@ import { getData } from "./actions";
 import { TTestimonial } from "./types";
 import StarIcon from "@/public/images/star.svg";
 
-function Content({ data }: { data: TTestimonial[] }) {
+export async function ContentTestimonials({ data }: { data: TTestimonial[] }) {
     return (
         data.map((item) => (
             <div key={item.id} className="flex flex-col border p-7 rounded-3xl gap-y-4 h-full overflow-hidden">
@@ -34,7 +34,7 @@ export async function Testimonials() {
     return (
         <div className="relative pb-16">
             <Slider swiperClassName="w-full" swiperSliderClassName="!w-[340px] !h-[400px] -mx-2 px-6">
-                <Content data={data} />
+                <ContentTestimonials data={data} />
             </Slider>
         </div>
     )

@@ -59,7 +59,7 @@ function WeddingPackageSlider({ data }: { data: TPackage[] }) {
                             </span>
                             <span className="flex gap-x-2 items-center">
                                 <HometownIcon width={32} height={32} />
-                                {item.about}
+                                {item.weddingOrganizer.name}
                             </span>
                         </span>
                         <Link
@@ -73,8 +73,11 @@ function WeddingPackageSlider({ data }: { data: TPackage[] }) {
     )
 }
 
-export default async function WeddingPackages({ show, type }: PropsWeddingPackagesWrapper) {
-    const { data }: { data: TPackage[] } = await getData(show);
+export default async function WeddingPackages({ show, type, location }: PropsWeddingPackagesWrapper) {
+    let { data }: { data: TPackage[] } = await getData(show);
+    if (location) {
+        data = data.filter((item) => item.city.slug === location)
+    }
     if (type === "grid") {
         return (
             <div className="grid grid-cols-4 gap-7">

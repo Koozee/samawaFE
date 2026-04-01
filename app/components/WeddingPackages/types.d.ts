@@ -1,11 +1,25 @@
 import { TCity } from "@/app/components/Cities/types";
 import { TOrganizer } from "@/app/components/Organizer/types";
+import { TTestimonial } from "@/app/components/Testimonials/types";
 
 export type TShow = 'popular' | 'newest';
 
+export type TBonusPackage = {
+    id: number,
+    bonusPackage: {
+        id: number,
+        name: string,
+        slug: string,
+        thumbnail: string,
+        about: string,
+        price: number,
+    }
+}
+
 export type PropsWeddingPackagesWrapper = {
     show: TShow,
-    type: 'grid' | 'slider'
+    type: 'grid' | 'slider',
+    location?: string
 }
 
 export type TPackage = {
@@ -17,5 +31,11 @@ export type TPackage = {
     thumbnail: string,
     about: string,
     city: TCity
+    photos: {
+        id: number,
+        photo: string
+    }[],
+    weddingBonusPackages: TBonusPackage[]
     weddingOrganizer: TOrganizer
+    weddingTestimonials: TTestimonial[]
 }

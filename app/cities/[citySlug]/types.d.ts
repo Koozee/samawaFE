@@ -1,8 +1,7 @@
-export type TOrganizer = {
+export type TCity = {
     id: number;
     name: string;
     slug: string;
-    phone: string;
     icon: string;
     weddingPackages_count: number;
 };
