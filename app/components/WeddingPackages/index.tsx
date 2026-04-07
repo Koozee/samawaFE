@@ -63,7 +63,7 @@ function WeddingPackageSlider({ data }: { data: TPackage[] }) {
                             </span>
                         </span>
                         <Link
-                            href={`/wedding-details/${item.id}`}
+                            href={`/packages/${item.slug}`}
                             className="flex justify-center bg-color2 py-2 w-full text-light1 rounded-full"
                         >View Package</Link>
                     </div>
@@ -84,7 +84,7 @@ export default async function WeddingPackages({ show, type, location }: PropsWed
                 {data.map((item) => {
                     return (
                         <div key={item.id} className="flex flex-col gap-y-4 relative">
-                            <Link href={`/wedding-details/${item.id}`} className="absolute inset-0 z-10" />
+                            <Link href={`/packages/${item.slug}`} className="absolute inset-0 z-10" />
                             <span className="relative h-[300px] rounded-3xl overflow-hidden">
                                 {item.isPopular ===  1 && <span className="absolute z-10 top-5 left-5">
                                     <span

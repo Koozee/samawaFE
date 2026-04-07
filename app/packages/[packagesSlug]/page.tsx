@@ -1,5 +1,3 @@
-"use client"
-import { useState } from "react"
 import Header from "@/app/components/Header"
 import { TPackage } from "@/app/components/WeddingPackages/types"
 import { Metadata } from "next"
@@ -10,18 +8,13 @@ import CheckListIcon from '@/public/images/checklist.svg'
 import Image from "next/image"
 import Link from "next/link"
 import { ContentTestimonials } from "@/app/components/Testimonials"
+import Bonus from "@/app/components/Bonus"
+import { Organizer } from "@/app/components/Organizer"
+import { getData } from "./actions"
 
 
 type Request = {
     params: Promise<{ packagesSlug: string }>
-}
-
-async function getData(slug: string) {
-    const res = await fetch(`${process.env.BASE_API_URI}/wedding-package/${slug}`)
-    if (!res.ok) {
-        throw new Error('Failed to fetch data')
-    }
-    return res.json()
 }
 
 export async function generateMetadata(
@@ -39,13 +32,12 @@ export async function generateMetadata(
 }
 
 export default async function DetailsPackagesPage(request: Request) {
-    const [showModal, setShowModal] = useState(false)
     const { packagesSlug } = await request.params
     const { data: weddingPackage }: { data: TPackage } = await getData(packagesSlug)
     const photos = weddingPackage.photos.map((photo) => photo.photo)
     const photoSliced = photos.slice(0, 3)
     return (
-        <main className="flex flex-col gap-y-8 relative pb-16">
+        <main className="flex flex-col gap-y-8 relative pb-16 px-5">
             <Header />
 
             <section className="container mx-auto flex flex-col">
@@ -159,34 +151,7 @@ export default async function DetailsPackagesPage(request: Request) {
                             <h6 className="font-bold text-xl">Bonus Included</h6>
                             {weddingPackage.weddingBonusPackages.length > 0 ?
                                 weddingPackage.weddingBonusPackages.map((item) => (
-                                    <div key={item.id} className="flex border p-5 gap-x-5 rounded-2xl items-center">
-                                        <span
-                                            className="flex w-44 aspect-video relative rounded-2xl overflow-hidden"
-                                        >
-                                            <img
-                                                src="/images/image 4.png"
-                                                alt="wedding 4"
-                                                className="w-full h-full object-cover absolute"
-                                            />
-                                        </span>
-                                        <div className="flex flex-col">
-                                            <h6 className="text-xl font-bold">
-                                                {item.bonusPackage.name}
-                                            </h6>
-                                            <span className="flex gap-x-2">
-                                                <span className="text-color2">
-                                                    <span className="font-semibold"> Rp {item.bonusPackage.price.toLocaleString('id-ID')} </span>
-                                                    <span className=""> /package </span>
-                                                </span>
-                                                <span className="line-through">Rp 680.000.000</span>
-                                            </span>
-                                        </div>
-                                        <button
-                                            className="border ml-auto border-dark1 px-5 py-3 rounded-full font-semibold cursor-pointer"
-                                        >
-                                            View Details
-                                        </button>
-                                    </div>
+                                    <Bonus key={item.id} bonus={item} packagesSlug={weddingPackage.slug} />
                                 )) : <span className="text-center">No Bonus Package</span>}
                         </div>
 
@@ -226,25 +191,7 @@ export default async function DetailsPackagesPage(request: Request) {
                                 </ul>
                                 <hr />
                                 <h6 className="font-bold">Wedding Organizer</h6>
-                                <div
-                                    className="flex border border-light3 hover:border-color2 transition-colors duration-300 bg-light1 p-5 rounded-3xl items-center gap-x-5 relative">
-                                    <span
-                                        className="relative w-[80px] aspect-square rounded-full overflow-hidden">
-                                        <Image
-                                            src={weddingPackage.weddingOrganizer.icon}
-                                            alt={weddingPackage.weddingOrganizer.name}
-                                            className="w-full h-full object-cover absolute"
-                                            fill
-                                            unoptimized={process.env.NODE_ENV === "development"}
-                                        />
-                                    </span>
-                                    <span className="flex flex-col">
-                                        <span className="text-xl font-bold">{weddingPackage.weddingOrganizer.name}</span>
-                                        <span className="">{weddingPackage.weddingOrganizer.weddingPackages_count} Packages</span>
-                                    </span>
-                                    <Link href={`/organizers/${weddingPackage.weddingOrganizer.slug}`} className="absolute inset-0">
-                                    </Link>
-                                </div>
+                                <Organizer organizer={weddingPackage.weddingOrganizer} />
                                 <hr />
                                 <Link
                                     href={`/packages/${weddingPackage.slug}/checkout`}
@@ -255,55 +202,6 @@ export default async function DetailsPackagesPage(request: Request) {
                 </div>
             </section>
 
-            <div
-                id="modal"
-                className="hidden fixed inset-0 bg-dark1/80 items-center justify-center"
-            >
-                <div className="bg-white rounded-2xl p-5 flex flex-col gap-y-5 w-6/12">
-                    <span className="relative w-full aspect-video rounded-2xl overflow-hidden">
-                        <img
-                            src="/images/image 3.png"
-                            alt="wedding 2"
-                            className="w-full h-full object-cover absolute"
-                        />
-                    </span>
-                    <hr />
-                    <div className="flex flex-col">
-                        <h6 className="text-xl font-bold">Pre Post Wedding Photography Album</h6>
-                        <span className="flex gap-x-2">
-                            <span className="text-color2">
-                                <span className="font-semibold"> Rp 0 </span>
-                                <span className=""> /package </span>
-                            </span>
-                            <span className="line-through">Rp 680.000.000</span>
-                        </span>
-                    </div>
-
-                    <hr />
-                    <div className="flex flex-col">
-                        <h6 className="font-bold text-xl">About</h6>
-                        <p className="leading-normal">
-                            Our exclusive wedding package offers an unforgettable celebration
-                            tailored to your dreams. Enjoy a stunning venue, elegant
-                            decorations, and a delectable gourmet menu crafted by top chefs.
-                            Capture every precious moment with professional photography and
-                            videography. Dance the night away with a live band or DJ. Our
-                            dedicated event planner ensures every detail is perfect, from
-                            personalized invitations to a luxurious bridal suite. Experience a
-                            magical day filled with love and joy, creating memories.
-                        </p>
-                    </div>
-                    <hr />
-                    <span className="flex">
-                        <a
-                            href="#close-modal"
-                            className="border border-dark1 px-5 py-3 rounded-full font-semibold"
-                        >
-                            Close Details
-                        </a>
-                    </span>
-                </div>
-            </div>
         </main>
     )
 }

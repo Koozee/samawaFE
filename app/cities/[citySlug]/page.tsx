@@ -11,7 +11,7 @@ type Request = {
 }
 
 async function getData(slug: string) {
-    const res = await fetch(`${process.env.BASE_API_URI}/city/${slug}`)
+    const res = await fetch(`${process.env.NEXT_API_URI}/city/${slug}`)
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
